@@ -7,13 +7,18 @@ Created on Sat May  6 12:11:58 2023
 
 import ARIA_FUNC as ARIA
 import diffie_hellman as ECDH
+import elsig_hash as GAMAL
 
 def main():
     
 
+    my_string = 'monkey'
+    plain = int(my_string.encode('utf-8').hex(), 16)
+    print("\n\nPlain text: ",my_string)
+
     
     #ECDH:
-    print("\n\n\n")
+    print("\nElliptic Curve D-H:\n")
     F = ECDH.FiniteField(3851, 1)
     # Totally insecure curve: y^2 = x^3 + 324x + 1287
     curve = ECDH.EllipticCurve(a=F(324), b=F(1287))
@@ -35,27 +40,55 @@ def main():
     
     
     
-    my_string = 'monkey'
-    plain = int(my_string.encode('utf-8').hex(), 16)
+    
+
     key = sharedSecret1.x.n
     bits = 256
     
-
+    print("Key: {0:0{1}x}\n".format(key, bits//4))
+    
+    #Encryption
     cipher = ARIA.ARIA_encryption(plain, key, bits)
+    
+    print("ARIA:\n")
+    print("Cipher text: {0:032x}".format(cipher))
+    
+    #Digital Signature: El Gamal
+    print("Digital Signature: El Gamal:\nChecking signature..\n")
+    #SIGN:
+    # p = large prime number
+    # a = generator
+    # x = secret key
+    # y = a^x (mod p)
+    p,a,x,y = GAMAL.egKey(bits)
+    s1, s2 = GAMAL.egGen(p, a, x, cipher)
+
+    
+    #VERIFY
+    verify_signature = GAMAL.egVer(p, a, y, s1, s2, cipher)
+
+    
+    if not verify_signature:
+        print("Bad signature")
+        return
+    else:
+        print("\nSignature is valid!\n")
+    
+    
+    #Decryption
     decrypted = ARIA.ARIA_decryption(cipher, key, bits)
     decrypted_str = hex(decrypted)[2:]  # Convert decrypted to hexadecimal string
     original = bytes.fromhex(decrypted_str).decode('utf-8')
 
     # Print the results
-    print("\n\n\nPlain text: ",my_string)
-    print("Key: {0:0{1}x}".format(key, bits//4))
-    print("Cipher text: {0:032x}".format(cipher))
+
+
+    
     print("Decrypted text: {0:032x}".format(decrypted))
     print("original text: ",original)
     
     
 
-    
 
 
 # Press the green button in the gutter to run the script.

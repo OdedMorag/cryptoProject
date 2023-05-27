@@ -236,9 +236,9 @@ def cipher(plain, roundkeys, printInter):
             t[4 * j + 2] = inv_S1box(roundkeys[2 * i][4 * j + 2] ^ c[4 * j + 2])
             t[4 * j + 3] = inv_S2box(roundkeys[2 * i][4 * j + 3] ^ c[4 * j + 3])
         c = DiffLayer(t)  # DiffLayer
-        if printInter:
-            #print(" Round {0:0>2}: ".format(2 * i + 1), end='')
-            printBlock(c)
+        # if printInter:
+        #     #print(" Round {0:0>2}: ".format(2 * i + 1), end='')
+        #     printBlock(c)
         # Even case
         for j in range(4):  # AddRoundKey and SubstLayer
             t[4 * j] = inv_S1box(roundkeys[2 * i + 1][4 * j] ^ c[4 * j])
@@ -246,14 +246,14 @@ def cipher(plain, roundkeys, printInter):
             t[4 * j + 2] = S1box(roundkeys[2 * i + 1][4 * j + 2] ^ c[4 * j + 2])
             t[4 * j + 3] = S2box(roundkeys[2 * i + 1][4 * j + 3] ^ c[4 * j + 3])
         c = DiffLayer(t)  # DiffLayer
-        if 2 * i + 1 != R - 1 and printInter:
-            #print(" Round {0:0>2}: ".format(2 * i + 2), end='')
-            printBlock(c)
+        # if 2 * i + 1 != R - 1 and printInter:
+        #     #print(" Round {0:0>2}: ".format(2 * i + 2), end='')
+        #     printBlock(c)
     t = DiffLayer(c)
     for j in range(16):
         c[j] = roundkeys[len(roundkeys) - 1][j] ^ t[j]
     #print(" Round {0:0>2}: ".format(2 * i + 2), end='')
-    printBlock(c)
+    #printBlock(c)
     return c
 
 
