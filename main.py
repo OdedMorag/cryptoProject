@@ -54,7 +54,7 @@ def main():
     print("Cipher text: {0:032x}".format(cipher))
     
     #Digital Signature: El Gamal
-    print("Digital Signature: El Gamal:\nChecking signature..\n")
+    print("\nDigital Signature: El Gamal:\n\nChecking signature..\n")
     #SIGN:
     # p = large prime number
     # a = generator
@@ -72,7 +72,7 @@ def main():
         print("Bad signature")
         return
     else:
-        print("\nSignature is valid!\n")
+        print("Signature is valid!\n")
     
     
     #Decryption
@@ -83,9 +83,10 @@ def main():
     # Print the results
 
 
-    
-    print("Decrypted text: {0:032x}".format(decrypted))
-    print("original text: ",original)
+
+    print("Decrypted text: ",original)
+    #print("Decrypted text: {0:032x}".format(decrypted))
+    #print("original text: ",original)
     
     
 
