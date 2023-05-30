@@ -27,9 +27,13 @@ import random
 
 
 def pair(s):
-    while(True):
+    a = 0
+    while (True):
         p = num.getPrime(s)
-        for g in range(2, p):
-            if(pow(g,p-1,p)==1):
-                return p,g
+        while (True):
+            a = random.randint(2, p - 1)
+            if ((p - 1) % a != 1):
+                break
+
+        return p, a
         
