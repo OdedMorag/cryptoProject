@@ -59,12 +59,12 @@ def main():
     if not verification:
         print("bob msg verification failed")
         return 1
-    print("Alice have verified Bob's massage")
+    print("Alice has verified Bob's massage")
     #bob's part
     msg, s1, s2 = messageSent(p, a, x, aliceDFPublicKey)
     print("Alice sent her DH public key to Bob with a signature: s1=", s1, " s2=", s2)
     aliceDFPublicKey, verification = messageRecive(p, a, y, s1, s2, msg)
-    print("Bob have verified Alice's massage")
+    print("Bob has verified Alice's massage")
     if not verification:
         print("alice msg verification failed")
         return 1
@@ -97,7 +97,7 @@ def main():
     if not verification:
         print("alice encrypt msg failed!")
         return 1
-    print("Bob have verified Alice's massage")
+    print("Bob has verified Alice's massage")
 
     
     #Decryption
